@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head xmlns="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <title>图书管理系统</title>
+
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/index.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap.min.css">
+
+</head>
+
+
+
+
+<body>
+
+    <div class="container-fluid" style="background-color: rgba(0, 1, 9, 0.14);height: 730px;padding-top: 50px;">
+
+        <div class="row">
+            <div class="col-xs-3 system-left">
+                <ul>
+                    <li>
+                        <a href="/index">首页</a>
+                    </li>
+                    <li>
+                        <a href="/booksystem/allbook">借书</a>
+                    </li>
+                    <li>
+                        <a href="/booksystem/huangshubook">还书</a>
+                    </li>
+                    <li>
+                        <a href="/systembook/manager">增减/删除库存</a>
+                    </li>
+                    <li>
+                        <a href="/systembook/userbooklog">出借记录</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-9" >
+
+                <div class="jumbotron" style="height: 590px;">
+                    <h1>welcome, my system is book!</h1>
+                    <p>欢迎来到图书管理系统, 如果使用本系统请先登录或者注册进行系统授权 !</p>
+                    <!-- Button trigger modal -->
+                    <p>&nbsp;</p><p>&nbsp;</p>
+                    <span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                    <div th:if="${book_code}==608">
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                            &nbsp;&nbsp;&nbsp;&nbsp;登&nbsp;&nbsp;陆&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                            &nbsp;&nbsp;&nbsp;&nbsp;注&nbsp;&nbsp;册&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+                    </div>
+                    <div th:if="${book_code}==606 or ${book_code}==909">
+                        <h3 th:text="${user_name} + '.' + ${user_type_name} + '!   欢迎回来,图书管理系统 .'"></h3>
+                        <h3><a href="/booksystem/userzhuxiao">~注销</a></h3>
+                    </div>
+
+
+
+
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">账号登陆</h4>
+                                    </div>
+                                    <form method="GET" action="booksystem/userlogin">
+                                        <div class="modal-body">
+
+                                            <div class="input-group" style="margin-bottom: 20px;">
+                                            <span class="input-group-addon" id="basic-addon1">用户</span>
+                                            <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="usName">
+                                        </div>
+                                            <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon2">密码</span>
+                                            <input type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1" name="usPassword">
+                                        </div>
+
+                                    </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: indianred;">放弃</button>
+                                        <button type="submit" class="btn btn-primary">提交</button>
+                                    </div>
+                                    </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script src="http://127.0.0.1:8080/script/jquery-chajian-3.js"></script>
+    <script src="http://127.0.0.1:8080/script/bootstrap.min.js"></script>
+    <script src="http://127.0.0.1:8080/script/index.js"></script>
+</body>
+
+
+
+
+
+
+
+
+</html>

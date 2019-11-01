@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head xmlns="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <title>管理员</title>
+
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/index.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap.min.css">
+
+</head>
+
+
+
+
+<body>
+
+<div class="container-fluid" style="background-color: rgba(0, 1, 9, 0.14);height: 730px;padding-top: 50px;">
+
+
+    <div class="row">
+        <div class="col-xs-3 system-left">
+            <ul>
+                <li>
+                    <a href="/index">首页</a>
+                </li>
+                <li>
+                    <a href="/booksystem/allbook">借书</a>
+                </li>
+                <li>
+                    <a href="/booksystem/huangshubook">还书</a>
+                </li>
+                <li>
+                    <a href="/systembook/manager">增减/删除库存</a>
+                </li>
+                <li>
+                    <a href="/systembook/userbooklog">出借记录</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-9">
+
+            <div class="jumbotron" style="height: 590px;">
+                <h2 style="padding-bottom: 15px;">管理员系统</h2>
+
+                <h3 th:if="${book_code}!=909" style="color: #5cb85c;">
+                    如获得管理员权限, 请先登录 !
+                </h3>
+                <div th:if="${book_code}==909">
+
+                    <table class="table table-hover manager">
+                        <tr>
+                            <td>书名</td>
+                            <td>作者</td>
+                            <td>出版社</td>
+                            <td>价格</td>
+                        </tr>
+                        <tr th:each="book:${book_all_dates}" th:attr="class=${book.bkID}">
+                            <td th:text="${book.bkName}" class="book_name"></td>
+                            <td th:text="${book.bkAuthor}" class="book_author">作者</td>
+                            <td th:text="${book.bkPress}" class="book_adder">出版社</td>
+                            <td th:text="${book.bkPrice}" class="book_price">价格</td>
+                        </tr>
+                    </table>
+
+                    <div class="btn-group" role="group" style="float: right;">
+                        <button type="button" class="btn btn-success manager_shangjia">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            上架
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+                    </div>
+                </div>
+                <!-- 分页主键 -->
+                <!-- 分页主键 -->
+                <nav aria-label="Page navigation" style="margin-left: 400px;">
+                    <ul class="pagination" >
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li th:each="length,lengthStart: ${book_length}">
+                            <a th:text="${lengthStart.count}" th:attr="href=@{/systembook/manager/}+${lengthStart.count}"></a>
+                        </li>
+
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                </div>
+
+
+            </div>
+
+
+        <div class="manager_block">
+
+            <div class="manager_center">
+
+                <table class="table">
+                    <tr>
+                        <td>书名 : </td>
+                        <td class="set_book_name"></td>
+                    </tr>
+                    <tr>
+                        <td>作者 : </td>
+                        <td class="set_book_auther"></td>
+                    </tr>
+                    <tr>
+                        <td>出版社 : </td>
+                        <td class="set_book_adder"></td>
+                    </tr>
+                    <tr>
+                        <td>价格 : </td>
+                        <td class="set_book_price"></td>
+                    </tr>
+                </table>
+                <div class="btn-group" role="group" style="margin-top:50px; ">
+                    <button type="button" class="btn btn-danger"  onclick="managerYingChang('.manager_block')">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </button>
+                    <button type="button" class="btn btn-success xiajia_btn_ajax_class">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        下&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;架
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="manager_shangjia_mianbang">
+
+            <div class="manager_shangjia_mianbang_center">
+
+                <form action="/systembook/manager/shangjia" method="post">
+                    <div class="input-group" style="margin-bottom: 10px;">
+                        <input type="text" class="form-control" placeholder="book name" aria-describedby="sizing-addon2" name="bkName">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 10px;">
+                        <input type="text" class="form-control" placeholder="book author" aria-describedby="sizing-addon2" name="bkAuthor">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 10px;">
+                        <input type="text" class="form-control" placeholder="book press" aria-describedby="sizing-addon2" name="bkPress">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 10px;">
+                        <input type="" class="form-control" placeholder="book price" aria-describedby="sizing-addon2" name="bkPrice">
+                    </div>
+
+                    <div class="btn-group" role="group" style="margin-top:50px;">
+                        <button type="button" class="btn btn-danger"  onclick="managerYingChang('.manager_shangjia_mianbang')">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+                        <button type="submit" class="btn btn-success" onclick="">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;定
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+                    </div>
+
+                </form>
+
+
+
+            </div>
+
+        </div>
+
+        </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+<script src="http://127.0.0.1:8080/script/jquery-chajian-3.js"></script>
+<script src="http://127.0.0.1:8080/script/bootstrap.min.js"></script>
+<script src="http://127.0.0.1:8080/script/index.js"></script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

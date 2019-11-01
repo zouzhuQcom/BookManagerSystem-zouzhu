@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head xmlns="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <title>图书借书系统</title>
+
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/index.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8080/css/bootstrap.min.css">
+
+</head>
+
+
+
+
+<body>
+
+<div class="container-fluid" style="background-color: rgba(0, 1, 9, 0.14);height: 730px;padding-top: 50px;">
+
+
+    <div class="row">
+        <div class="col-xs-3 system-left">
+            <ul>
+                <li>
+                    <a href="/index">首页</a>
+                </li>
+                <li>
+                    <a href="/booksystem/allbook">借书</a>
+                </li>
+                <li>
+                    <a href="/booksystem/huangshubook">还书</a>
+                </li>
+                <li>
+                    <a href="/systembook/manager">增减/删除库存</a>
+                </li>
+                <li>
+                    <a href="/systembook/userbooklog">出借记录</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-9">
+
+            <div class="jumbotron" style="height: 590px;">
+                <h2>图书借阅系统</h2>
+                <table class="table table-hover">
+                    <tr>
+                        <td># 书名</td>
+                        <td># 作者</td>
+                        <td># 出版社</td>
+                        <td># 价格</td>
+                        <td># 状态</td>
+                    </tr>
+                    <tr th:each="book : ${allbook}" th:attr="class=(${book.bkID} + ' ' + 'start' + ${book.bkStatus} + ' ' + 'code' + ${book_code})">
+                        <td class="book_name" th:text="${book.bkName}"></td>
+                        <td class="book_auther" th:text="${book.bkAuthor}"></td>
+                        <td class="book_press" th:text="${book.bkPress}"></td>
+                        <td class="book_price" th:text="${book.bkPrice} + ￥"></td>
+                        <td th:if="${book.bkStatus}==1">
+                            <div style="width: 10px;height: 10px;background-color: #5cb85c;border-radius: 5px;margin-left:10px;margin-top: 5px;"></div>
+                        </td>
+                        <td th:if="${book.bkStatus}==0">
+                            <div style="width: 10px;height: 10px;background-color: indianred;border-radius: 5px;margin-left:10px;margin-top: 5px;"></div>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- 分页主键 -->
+                <nav aria-label="Page navigation" style="margin-left: 400px;">
+                    <ul class="pagination" >
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li th:each="length,lengthStart: ${book_length}">
+                            <a th:text="${lengthStart.count}" th:attr="href=@{/booksystem/allbook/}+${lengthStart.count}"></a>
+                        </li>
+
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
+        <div class="jieshu_block">
+
+            <div class="jieshu_center">
+
+                <table class="table">
+                    <tr>
+                        <td>书名 : </td>
+                        <td class="set_book_name"></td>
+                    </tr>
+                    <tr>
+                        <td>作者 : </td>
+                        <td class="set_book_auther"></td>
+                    </tr>
+                    <tr>
+                        <td>出版社 : </td>
+                        <td class="set_book_press"></td>
+                    </tr>
+                    <tr>
+                        <td>价格 : </td>
+                        <td class="set_book_price"></td>
+                    </tr>
+                </table>
+                <div class="btn-group" role="group" style="margin-top:50px; ">
+                    <button type="button" class="btn btn-danger"  onclick="yingchang()">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="jieshi_ajax()">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        借&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;阅
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+    </div>
+
+</div>
+
+
+<script src="http://127.0.0.1:8080/script/jquery-chajian-3.js"></script>
+<script src="http://127.0.0.1:8080/script/bootstrap.min.js"></script>
+<script src="http://127.0.0.1:8080/script/index.js"></script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
